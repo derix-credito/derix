@@ -2,8 +2,8 @@
    DERIX — página de entrada com digital / reconhecimento facial
    PREENCHA AS DUAS LINHAS ABAIXO (veja o passo a passo):
    ===================================================================== */
-var API_URL = 'COLE_AQUI_O_LINK_DA_IMPLANTACAO_API';   // implantação "Qualquer pessoa" (termina em /exec)
-var APP_URL = 'COLE_AQUI_O_LINK_DO_APP_DERIX';         // implantação "Somente eu" do app (termina em /exec)
+var API_URL = 'https://script.google.com/macros/s/AKfycbyidOeawyI74pLWGxdbSMwBGQZdrpqR7_eFQAcd8UC8rsnEHTvIu3uzLYOPcFf5hMtEyQ/exec';   // implantação "Qualquer pessoa" (termina em /exec)
+var APP_URL = 'https://script.google.com/macros/s/AKfycbzmFNQiR8W4MFQPUziz0wMKiOjjOvCOJEqidQXyMEgKAovYhW-KjjyrvQt3LervF77iAw/exec';         // implantação "Somente eu" do app (termina em /exec)
 /* ===================================================================== */
 
 (function () {
