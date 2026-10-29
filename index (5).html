@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src https://script.google.com https://script.googleusercontent.com; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0d47a1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="DERIX">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="favicon.png">
+<title>DERIX Empréstimos</title>
+<style>
+  :root { --azul:#0d47a1; --azul2:#1e88e5; --verde:#00803c; --ouro:#d4af37; --verm:#c62828; --fundo:#eef2f7; --texto:#1b2430; --cinza:#5b6573; --borda:#cfd8e3; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:Arial, Helvetica, sans-serif; background:var(--fundo); color:var(--texto); -webkit-tap-highlight-color:transparent; }
+  .tela { display:none; min-height:100vh; padding:16px 16px calc(16px + env(safe-area-inset-bottom)); }
+  .tela.ativa { display:block; }
+  .centro { max-width:420px; margin:7vh auto 0; }
+  .logo { width:96px; height:96px; margin:0 auto 14px; border-radius:24px; background:var(--verde); border:7px solid var(--azul);
+          box-shadow:0 0 0 3px var(--azul2) inset; display:flex; align-items:center; justify-content:center;
+          font:bold 44px Georgia, serif; color:var(--ouro); text-shadow:2px 2px 0 rgba(0,0,0,.25); }
+  h1 { text-align:center; color:var(--azul); margin:0 0 4px; font-size:22px; }
+  .sub { text-align:center; color:var(--cinza); font-size:13px; margin-bottom:22px; }
+  .card { background:#fff; border-radius:16px; padding:18px; box-shadow:0 4px 18px rgba(13,71,161,.10); }
+  label { font-size:12px; font-weight:bold; color:var(--azul); display:block; margin:12px 0 5px; text-transform:uppercase; letter-spacing:.2px; }
+  input { width:100%; padding:12px 13px; font-size:16px; border:2px solid var(--borda); border-radius:12px; outline:none; background:#fff; color:var(--texto); font-family:inherit; }
+  input:focus { border-color:var(--azul2); }
+  input.codigo { font-size:26px; letter-spacing:4px; text-align:center; font-weight:bold; color:var(--azul); }
+  button { font-family:inherit; }
+  .prim { width:100%; margin-top:16px; padding:15px; font-size:17px; font-weight:bold; color:var(--ouro); background:var(--verde); border:3px solid var(--azul); border-radius:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px; }
+  .prim:disabled { opacity:.55; }
+  .prim .bio { font-size:26px; line-height:1; }
+  .sec { display:block; width:100%; margin-top:12px; padding:12px; font-size:15px; font-weight:bold; border-radius:12px; cursor:pointer; border:2px solid var(--azul); background:#fff; color:var(--azul); text-align:center; text-decoration:none; }
+  .link { background:none; border:0; color:var(--azul); font-size:13px; text-decoration:underline; cursor:pointer; margin-top:14px; display:block; width:100%; text-align:center; }
+  .msg { margin-top:12px; font-size:14px; text-align:center; min-height:18px; }
+  .msg.erro { color:var(--verm); font-weight:bold; } .msg.ok { color:var(--verde); font-weight:bold; }
+  .seg { text-align:center; color:var(--cinza); font-size:12px; margin-top:16px; line-height:1.5; }
+  .aviso { background:#fff8e1; border-left:4px solid var(--ouro); border-radius:10px; padding:10px 12px; font-size:13px; margin-top:12px; line-height:1.45; }
+  .giro { width:18px; height:18px; border:3px solid rgba(212,175,55,.35); border-top-color:var(--ouro); border-radius:50%; animation:g 0.8s linear infinite; display:none; }
+  .ocupado .giro { display:inline-block; } .ocupado .bio { display:none; }
+  @keyframes g { to { transform:rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<!-- ENTRAR -->
+<div id="tEntrar" class="tela ativa"><div class="centro">
+  <div class="logo">D$</div>
+  <h1>DERIX Empréstimos</h1>
+  <div class="sub">Empresa Simples de Crédito</div>
+  <div class="card">
+    <button class="prim" id="bEntrar"><span class="bio">👆</span><span class="giro"></span><span id="bEntrarTxt">Entrar com digital ou rosto</span></button>
+    <div id="eMsg" class="msg"></div>
+    <a class="sec" id="lSenha" href="#" rel="noreferrer">🔑 Entrar com a senha DERIX</a>
+    <button class="link" id="irCadastro">Cadastrar este aparelho</button>
+    <div id="semSuporte" class="aviso" style="display:none"></div>
+  </div>
+  <div class="seg">🔒 Face ID, digital ou Windows Hello.<br>A sua biometria nunca sai do aparelho.</div>
+</div></div>
+
+<!-- CADASTRAR APARELHO -->
+<div id="tCadastro" class="tela"><div class="centro">
+  <div class="logo">D$</div>
+  <h1>Cadastrar este aparelho</h1>
+  <div class="sub">Gere o código no app DERIX: menu 🔐 Digital e rosto</div>
+  <div class="card">
+    <label for="cCodigo">Código de cadastro</label>
+    <input id="cCodigo" class="codigo" inputmode="numeric" autocomplete="one-time-code" maxlength="9" placeholder="0000-0000">
+    <label for="cNome">Nome deste aparelho</label>
+    <input id="cNome" maxlength="40" placeholder="Ex.: iPhone do José">
+    <button class="prim" id="bCadastrar"><span class="bio">🔐</span><span class="giro"></span><span>Cadastrar aparelho</span></button>
+    <div id="cMsg" class="msg"></div>
+    <button class="link" id="voltar">← Voltar</button>
+  </div>
+  <div class="seg">O código vale 10 minutos e só pode ser usado uma vez.</div>
+</div></div>
+
+<script src="app.js"></script>
+</body>
+</html>
